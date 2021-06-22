@@ -14,6 +14,6 @@ export const deleteTodo = id => {
     return fetch('http://localhost:3001/',{
         method: "DELETE",
         headers: {"Content-Type": "application/json"},
-        body: JSON.stringify({id}),
+        body: JSON.stringify(id),
     }).then(res => res.json()).then()
 }
