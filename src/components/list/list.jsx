@@ -9,7 +9,7 @@ const ToDoList = ({ toDoList, deleteItem }) => {
           {value}
           <button
             onClick={() => {
-              deleteItem(index);
+              deleteItem(id);
             }}
           >
             Удалить
