@@ -8,7 +8,7 @@ const App = () => {
 
   const deleteItemHandler = id => {
     deleteTodo(id).then(() => {
-      const newToDoList = toDoList.filter((item, index) => index !== id);
+      const newToDoList = toDoList.filter((item) => item.id !== id);
       setToDoList(newToDoList);
     })
   };
@@ -34,9 +34,13 @@ const App = () => {
   const isCompleted = id => {
     changeCompleted(id).then(() => {
       const idx = toDoList.findIndex(todo => id === todo.id);
-      toDoList[idx].completed = !toDoList[idx].completed;
+     // toDoList[idx].completed = !toDoList[idx].completed;
+    //setToDoList(item => {
+    //  return item.toDoList.map(todo => todo.id === id ? {...todo, completed: !todo.completed} : todo)})
+    //setToDoList(item => {item.toDoList[idx].completed = !toDoList[idx].complete})
     }
-    )};
+    )
+  }
 
   return (
     <>
