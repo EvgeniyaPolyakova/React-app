@@ -17,3 +17,11 @@ export const deleteTodo = id => {
         body: JSON.stringify({id}),
     }).then(res => res.json())
 }
+
+export const changeCompleted = id => {
+    return fetch('http://localhost:3001/',{
+        method: "PUT",
+        headers: {"Content-Type": "application/json"},
+        body: JSON.stringify({id}),
+    }).then(res => res.json())
+}

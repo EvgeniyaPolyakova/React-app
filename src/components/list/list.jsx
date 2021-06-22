@@ -1,11 +1,11 @@
 import React from "react";
 
-const ToDoList = ({ toDoList, deleteItem }) => {
+const ToDoList = ({ toDoList, deleteItem, completedTodo }) => {
   return (
     <ol>
       {toDoList.map(({id, value, completed}, index) => (
         <li key={id}>
-          <input type="checkbox" completed={completed}/>
+          <input type="checkbox" completed={completed} onChange={() => {completedTodo(id)}}/>
           {value}
           <button
             onClick={() => {

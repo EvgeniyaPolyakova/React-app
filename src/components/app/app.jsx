@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import ToDoList from "../list";
 import Form from "../form";
-import { getTodos, addTodo, deleteTodo } from "../../api";
+import { getTodos, addTodo, deleteTodo, changeCompleted } from "../../api";
 
 const App = () => {
   const [toDoList, setToDoList] = useState([]);
@@ -31,10 +31,17 @@ const App = () => {
     getTodos().then((res) => setToDoList(res.toDoList));
   }, []);
 
+  const isCompleted = id => {
+    changeCompleted(id).then(() => {
+      const idx = toDoList.findIndex(todo => id === todo.id);
+      toDoList[idx].completed = !toDoList[idx].completed;
+    }
+    )};
+
   return (
     <>
       <Form saveToDo={onSaveHandler} />
-      <ToDoList toDoList={toDoList} deleteItem={deleteItemHandler} />
+      <ToDoList toDoList={toDoList} deleteItem={deleteItemHandler} completedTodo = {isCompleted}/>
     </>
   );
 };
