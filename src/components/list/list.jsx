@@ -1,18 +1,12 @@
-import React, { useState } from "react";
+import React from "react";
 
 const ToDoList = ({ toDoList, deleteItem }) => {
-  const [completed, setСompleted] = useState(false);
-  const [id, setId] = useState();
   return (
     <ol>
-      {toDoList.map((item, index) => (
-        <li key={item.id}>
-          <input
-        type="checkbox"
-        completed={completed}
-        onChange={() => setСompleted((prev) => !prev)}
-      />
-          {item}
+      {toDoList.map(({id, value, completed}, index) => (
+        <li key={id}>
+          <input type="checkbox" completed={completed}/>
+          {value}
           <button
             onClick={() => {
               deleteItem(index);

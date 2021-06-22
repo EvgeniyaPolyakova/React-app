@@ -1,34 +1,42 @@
 import React, { useEffect, useState } from "react";
 import ToDoList from "../list";
 import Form from "../form";
-import { getTodos } from "../../api";
+import { getTodos, addTodo, deleteTodo } from "../../api";
 
 const App = () => {
   const [toDoList, setToDoList] = useState([]);
 
-useEffect(() => {
-  getTodos().then(res => console.log(res)).then(res => setToDoList(res.toDoList))
-}, [toDoList])
+  const deleteItemHandler = id => {
+    deleteTodo(id).then(() => {
+      const newToDoList = toDoList.filter((item, index) => index !== id);
+      setToDoList(newToDoList);
+    })
+  };
+
+  const onSaveHandler = value => {
+    const newItem = {
+      id: Date.now(),
+      value,
+      completed: false,
+    }
+  
+ addTodo(newItem).then(() => {
+    setToDoList(prev => {
+      return [...prev, newItem];
+    });
+  });
+};
+
+  useEffect(() => {
+    getTodos().then((res) => setToDoList(res.toDoList));
+  }, []);
 
   return (
     <>
-      <Form
-        saveToDo={(toDoText) => {
-         setToDoList([...toDoList, toDoText]);
-        }}
-      />
-      <ToDoList
-        toDoList={toDoList}
-        deleteItem={(toDoItem) => {
-          const newToDoList = toDoList.filter(
-            (item, index) => index !== toDoItem
-          );
-          setToDoList(newToDoList);
-        }}
-      />
+      <Form saveToDo={onSaveHandler} />
+      <ToDoList toDoList={toDoList} deleteItem={deleteItemHandler} />
     </>
   );
 };
-
 
 export default App;
